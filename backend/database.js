@@ -6,7 +6,6 @@ const url = process.env.MONGODB_URI
 
 
 
-
 let promise = mongoose.connect(url).then(() => {
     console.log("Server is connected with the Database")
 })
