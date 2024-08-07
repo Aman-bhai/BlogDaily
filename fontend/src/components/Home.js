@@ -143,7 +143,7 @@ const HomePage = () => {
         <h2 className="text-2xl text-red-500 text-center mt-10 mb-5 font-semibold">
           Add a New Blog
         </h2>
-        <form className="w-1/3 mx-auto h-fit">
+        <form className="md:w-1/3 mx-auto h-fit w-[70%] sm:w-[60%]">
           <label
             htmlFor="title"
             className="text-sm font-medium leading-6 text-white mt-2"
