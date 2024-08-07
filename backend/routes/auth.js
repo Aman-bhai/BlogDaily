@@ -3,7 +3,8 @@ const { body, validationResult } = require('express-validator');
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const { userModel } = require('../database');
-const fetchuser = require('../middleware/fetchUser');
+const fetchuser = require('../middleware/fetchuser');
+
 
 const router = express.Router();
 const jwtSecret = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit, laudantium!";
@@ -15,6 +16,7 @@ router.post("/addUser", [
     body('password', 'Password must be at least 5 characters long').isLength({ min: 5 })
 ], async (req, res) => {
 
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
