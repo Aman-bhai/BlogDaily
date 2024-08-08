@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CustomAlert = ({ message, onClose }) => {
   return (
-    <div className="fixed top-4 right-4 z-50 w-96 p-4 bg-red-600 text-white rounded-lg shadow-lg">
+    <div className="fixed top-4 right-4 z-50 w-96 p-4 py-2 sm:mx-auto bg-red-600 text-white rounded-lg shadow-lg">
       <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
