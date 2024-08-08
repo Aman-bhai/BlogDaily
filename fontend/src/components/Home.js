@@ -3,7 +3,12 @@ import toast from "react-hot-toast";
 import CustomAlert from "./CustomAlert";
 import Card from "./BlogCard";
 import Modal from "./Modal";
-import { fetchBlogs, addBlog, deleteBlog, updateBlogs } from "../services/BlogService";
+import {
+  fetchBlogs,
+  addBlog,
+  deleteBlog,
+  updateBlogs,
+} from "../services/BlogService";
 import Button from "@mui/material/Button";
 
 const HomePage = () => {
@@ -183,12 +188,19 @@ const HomePage = () => {
           <Button
             variant="contained"
             className="mt-5"
-            color={"warning"}
+            color="warning"
             onClick={handleClick}
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, minWidth: "120px" }} 
             disabled={isLoading}
           >
-            {isLoading ? "Adding..." : "Add Blog"}
+            {isLoading ? (
+              <>
+                <span className="spinner-border spinner-border-sm mr-2"></span>
+                Adding...
+              </>
+            ) : (
+              "Add Blog"
+            )}
           </Button>
         </form>
         <h2 className="text-2xl text-red-500 text-center font-semibold mt-24 mb-5">
@@ -206,7 +218,7 @@ const HomePage = () => {
                 blog={item.blog}
                 title={item.title}
                 id={item._id}
-                date={formatDate(item.date)} 
+                date={formatDate(item.date)}
                 key={item._id}
                 onDelete={handleDelete}
                 onEdit={handleUpdate}
@@ -228,10 +240,7 @@ const HomePage = () => {
       )}
 
       {alertMessage && (
-        <CustomAlert
-          message={alertMessage}
-          onClose={handleAlertClose}
-        />
+        <CustomAlert message={alertMessage} onClose={handleAlertClose} />
       )}
     </>
   );

@@ -30,7 +30,9 @@ const Modal = ({ blogData, setModel, updateBlogs, showModal,mode }) => {
 
     try {
       const updatedData = { id: blogData.id, title, blog };
-      await updateBlogs(updatedData);
+      let token=localStorage.getItem("token")
+      console.log("updated data modal",updatedData,token)
+      await updateBlogs(updatedData,token);
     } catch (error) {
       console.error("Failed to update blog:", error);
     }

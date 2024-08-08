@@ -51,26 +51,42 @@ export const deleteBlog = async (id, token) => {
 
 export const updateBlogs = async (updatedData, token) => {
   try {
-    console.log(updatedData);
-    const response = await fetch(
-      `${process.env.REACT_APP_API_updateApi}/${updatedData.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": token,
-        },
-        body: JSON.stringify({
-          title: updatedData.title,
-          blog: updatedData.blog,
-        }),
+    const apiUrl = `${process.env.REACT_APP_API_updateApi}/${updatedData.id}`;
+    console.log("API URL:", apiUrl);
+
+    const response = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token,
+      },
+      body: JSON.stringify({
+        title: updatedData.title,
+        blog: updatedData.blog,
+      }),
+    });
+
+    const contentType = response.headers.get("content-type");
+    if (!response.ok) {
+      if (contentType && contentType.includes("application/json")) {
+        const errorData = await response.json();
+        console.error("Failed to update blog:", response.status, errorData);
+        throw new Error(`Failed to update blog: ${response.status} ${errorData.message || ''}`);
+      } else {
+        const text = await response.text();
+        console.error("Failed to update blog (non-JSON response):", response.status, text);
+        throw new Error(`Failed to update blog: ${response.status} ${text}`);
       }
-    );
-    if (!response.ok) throw new Error("Failed to update blog");
+    }
+
+    console.log("Blog updated successfully", response);
+    return await response.json(); 
   } catch (error) {
+    console.error("Error in updateBlogs:", error);
     throw new Error(error.message);
   }
 };
+
 
 export const fetchPublicBlogs = async () => {
   try {

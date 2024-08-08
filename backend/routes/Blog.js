@@ -92,7 +92,7 @@ router.get("/fetchblog/:id", fetchuser, async (req, res) => {
 });
 
 // Route 4: Update an existing blog (Login required)
-router.put("/updateblog/:id", fetchuser, [
+router.put("/updateBlog/:id", fetchuser, [
     body("blog", 'Blog content must be at least 5 characters long').isLength({ min: 5 }),
     body('title', 'Title is required').notEmpty(),
 ], async (req, res) => {
@@ -103,13 +103,14 @@ router.put("/updateblog/:id", fetchuser, [
     }
 
     try {
+        console.log(id)
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
         const { title, blog } = req.body;
-
+     console.log("title,blog",title)
         // Find the blog to update
         let existingBlog = await Blogmodel.findById(id);
 
